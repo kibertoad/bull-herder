@@ -1,6 +1,15 @@
 {
   "name": "bull-herder",
   "version": "1.0.0",
+  "description": "Bull queue job manager for distributed systems",
+  "maintainers": [
+    {
+      "name": "Igor Savin",
+      "email": "kibertoad@gmail.com"
+    }
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "docker:start": "docker compose up -d",
@@ -10,7 +19,8 @@
     "test:ci": "npm run lint && npm run test:coverage",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "prettier": "prettier --write \"{lib,test}/**/*.ts\" index.ts"
+    "prettier": "prettier --write \"{lib,test}/**/*.ts\" index.ts",
+    "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
     "bull": "^4.10.0"
@@ -31,5 +41,27 @@
     "ts-jest": "^29.0.3",
     "tslib": "^2.4.0",
     "typescript": "^4.8.4"
-  }
+  },
+  "homepage": "https://github.com/kibertoad/bull-herder",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kibertoad/bull-herder.git"
+  },
+  "keywords": [
+    "schedule",
+    "distributed",
+    "scheduler",
+    "job",
+    "jobs",
+    "task",
+    "tasks",
+    "recurring",
+    "create",
+    "redis"
+  ],
+  "files": [
+    "README.md",
+    "LICENSE",
+    "dist/*"
+  ]
 }

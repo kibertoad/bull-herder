@@ -1,5 +1,5 @@
-import Redis from 'ioredis'
 import { Mutex } from 'redis-semaphore'
+import type Redis from 'ioredis'
 import type { JobOptions, Queue } from 'bull'
 
 const defaultTaskSpawnLockTimeout = 1000 * 60 * 5
