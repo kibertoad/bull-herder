@@ -67,5 +67,5 @@ async function spawnMissingTasks(
 }
 
 function resolveTaskCountId(prefix: string, taskId: string, queue: Queue) {
-  return `${prefix}:task-count:${queue.name}:${taskId}`
+  return `${prefix}:job-count:${queue.name}:${taskId}`
 }
