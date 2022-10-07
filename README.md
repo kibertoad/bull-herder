@@ -16,6 +16,7 @@ Next, set up your jobs:
 ```ts
 import Bull from 'bull'
 import Redis from 'ioredis'
+import { spawnTasks } from 'bull-herder'
 
 const redis = new Redis({
     host: 'localhost',
