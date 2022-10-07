@@ -1,3 +1,3 @@
-import { spawnTasks, TaskDefinition, BullHerderOptions } from './lib/bull-herder'
+import { spawnTasks, JobDefinition, BullHerderOptions } from './lib/bull-herder'
 
-export { TaskDefinition, BullHerderOptions, spawnTasks }
+export { JobDefinition, BullHerderOptions, spawnTasks }

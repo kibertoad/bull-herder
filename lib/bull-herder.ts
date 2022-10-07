@@ -4,7 +4,7 @@ import type { JobOptions, Queue } from 'bull'
 
 const defaultTaskSpawnLockTimeout = 1000 * 60 * 5
 
-export type TaskDefinition = {
+export type JobDefinition = {
   id: string
   queue: Queue
   payload?: Record<string, any>
@@ -18,7 +18,7 @@ export type BullHerderOptions = {
   taskSpawnLockTimeout?: number
 }
 
-export async function spawnTasks(options: BullHerderOptions, tasks: TaskDefinition[]) {
+export async function spawnTasks(options: BullHerderOptions, tasks: JobDefinition[]) {
   const { redis } = options
   const taskSpawnLockTimeout = options.taskSpawnLockTimeout || defaultTaskSpawnLockTimeout
 
@@ -48,7 +48,7 @@ export async function spawnTasks(options: BullHerderOptions, tasks: TaskDefiniti
 async function spawnMissingTasks(
   options: BullHerderOptions,
   taskCount: number,
-  task: TaskDefinition
+  task: JobDefinition
 ) {
   let currentTaskCount = taskCount
 

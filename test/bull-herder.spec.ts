@@ -1,7 +1,7 @@
 import Bull from 'bull'
 import Redis from 'ioredis'
 import type { Queue } from 'bull'
-import { BullHerderOptions, spawnTasks, TaskDefinition } from '../lib/bull-herder'
+import { BullHerderOptions, spawnTasks, JobDefinition } from '../lib/bull-herder'
 import { waitUntilTrue } from './waitUtils'
 
 const redisOptions = {
@@ -14,7 +14,7 @@ describe('bull-herder', () => {
   let redis: Redis
   let queue: Queue
   let options: BullHerderOptions
-  let taskOptions: Omit<TaskDefinition, 'concurrency'>
+  let taskOptions: Omit<JobDefinition, 'concurrency'>
   beforeEach(async () => {
     redis = new Redis(redisOptions)
     await redis.flushall('SYNC')
@@ -39,7 +39,7 @@ describe('bull-herder', () => {
   describe('spawnTasks', () => {
     it('creates tasks if none exist', async () => {
       expect.assertions(1)
-      const tasks: TaskDefinition[] = [
+      const tasks: JobDefinition[] = [
         {
           ...taskOptions,
           concurrency: 1,
@@ -52,7 +52,7 @@ describe('bull-herder', () => {
 
     it('creates only missing tasks if some exist', async () => {
       expect.assertions(2)
-      const tasks: TaskDefinition[] = [
+      const tasks: JobDefinition[] = [
         {
           ...taskOptions,
           concurrency: 2,
@@ -73,7 +73,7 @@ describe('bull-herder', () => {
 
     it('creates nothing if all tasks exist', async () => {
       expect.assertions(2)
-      const tasks: TaskDefinition[] = [
+      const tasks: JobDefinition[] = [
         {
           ...taskOptions,
           concurrency: 5,

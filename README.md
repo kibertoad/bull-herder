@@ -17,21 +17,22 @@ Next, set up your jobs:
 import Bull from 'bull'
 import Redis from 'ioredis'
 import { spawnTasks } from 'bull-herder'
+import type { BullHerderOptions, JobDefinition } from "bull-herder";
 
 const redis = new Redis({
     host: 'localhost',
     port: 6379,
 })
-const queue = Bull('testQueue2', { redis: redisOptions })
+const queue = Bull('testQueue2', {redis: redisOptions})
 
 const options: BullHerderOptions = {
     redis,
     redisPrefix: 'herder',
 }
 
-const taskOptions: TaskDefinition = {
+const taskOptions: JobDefinition = {
     concurrency: 1,
-    id: 'someTaskId',
+    id: 'someJobId',
     queue,
     jobOptions: {
         // add relevant options, e. g. recurrency here
