@@ -67,7 +67,7 @@ describe('bull-herder', () => {
         },
       ])
       await assertTasks(3, queue)
-    }, 9999999)
+    })
 
     it('creates nothing if all tasks exist', async () => {
       const tasks: TaskDefinition[] = [
