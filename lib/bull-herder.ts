@@ -22,7 +22,7 @@ export async function spawnTasks(options: BullHerderOptions, tasks: TaskDefiniti
   const { redis } = options
   const taskSpawnLockTimeout = options.taskSpawnLockTimeout || defaultTaskSpawnLockTimeout
 
-  for (let task of tasks) {
+  for (const task of tasks) {
     const mutex = new Mutex(options.redis, `${options.redisPrefix}:locks:${task.id}`, {
       lockTimeout: taskSpawnLockTimeout,
     })

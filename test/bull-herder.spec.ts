@@ -1,6 +1,6 @@
 import Bull from 'bull'
 import Redis from 'ioredis'
-import { Queue } from 'bull'
+import type { Queue } from 'bull'
 import { BullHerderOptions, spawnTasks, TaskDefinition } from '../lib/bull-herder'
 import { waitUntilTrue } from './waitUtils'
 
@@ -38,6 +38,7 @@ describe('bull-herder', () => {
 
   describe('spawnTasks', () => {
     it('creates tasks if none exist', async () => {
+      expect.assertions(1)
       const tasks: TaskDefinition[] = [
         {
           ...taskOptions,
@@ -50,6 +51,7 @@ describe('bull-herder', () => {
     })
 
     it('creates only missing tasks if some exist', async () => {
+      expect.assertions(2)
       const tasks: TaskDefinition[] = [
         {
           ...taskOptions,
@@ -70,6 +72,7 @@ describe('bull-herder', () => {
     })
 
     it('creates nothing if all tasks exist', async () => {
+      expect.assertions(2)
       const tasks: TaskDefinition[] = [
         {
           ...taskOptions,
@@ -98,5 +101,5 @@ async function assertTasks(expectedAmount: number, queue: Queue) {
   })
 
   const runningTasks = await queue.getJobs(['waiting'])
-  expect(runningTasks.length).toBe(expectedAmount)
+  expect(runningTasks).toHaveLength(expectedAmount)
 }
