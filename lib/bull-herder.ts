@@ -31,7 +31,9 @@ export async function spawnTasks(options: BullHerderOptions, tasks: TaskDefiniti
       continue
     }
     try {
-      const taskCountString = await redis.get(resolveTaskCountId(options.redisPrefix, task.id))
+      const taskCountString = await redis.get(
+        resolveTaskCountId(options.redisPrefix, task.id, task.queue)
+      )
       const taskCount = taskCountString ? Number.parseInt(taskCountString) : 0
 
       if (taskCount < task.concurrency) {
@@ -57,10 +59,13 @@ async function spawnMissingTasks(
       ...task.jobOptions,
       jobId: id,
     })
-    await options.redis.set(resolveTaskCountId(options.redisPrefix, task.id), currentTaskCount)
+    await options.redis.set(
+      resolveTaskCountId(options.redisPrefix, task.id, task.queue),
+      currentTaskCount
+    )
   }
 }
 
-function resolveTaskCountId(prefix: string, taskId: string) {
-  return `${prefix}:task-count:${taskId}`
+function resolveTaskCountId(prefix: string, taskId: string, queue: Queue) {
+  return `${prefix}:task-count:${queue.name}:${taskId}`
 }
